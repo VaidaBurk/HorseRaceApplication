@@ -37,8 +37,7 @@ namespace HorseRaceBackend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBettor(BettorUpdateDto updatedBettor)
         {
-            await _bettorService.UpdateBettorAsync(updatedBettor);
-            return NoContent();
+            return Ok(await _bettorService.UpdateBettorAsync(updatedBettor));
         }
 
         [HttpDelete("{id}")]
@@ -46,6 +45,12 @@ namespace HorseRaceBackend.Controllers
         {
             await _bettorService.RemoveBettorAsync(id);
             return NoContent();
+        }
+
+        [HttpGet("Horse/{id}")]
+        public async Task<ActionResult> FilterByHorseId(int id)
+        {
+            return Ok(await _bettorService.FilterByHorseId(id));
         }
     }
 }

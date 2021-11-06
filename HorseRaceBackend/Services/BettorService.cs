@@ -36,8 +36,8 @@ namespace HorseRaceBackend.Services
                     FirstName = bettor.FirstName,
                     LastName = bettor.LastName,
                     Bet = bettor.Bet,
-                    HorseId = bettor.HorseId,
-                    HorseName = horses.FirstOrDefault(h => h.Id == bettor.HorseId).Name.ToString()
+                    HorseId = bettor.HorseId != null ? bettor.HorseId : null,
+                    HorseName = bettor.HorseId != null ? horses.FirstOrDefault(h => h.Id == bettor.HorseId).Name.ToString() : ""
                 };
                 mappedBettors.Add(mappedBettor);
             }
@@ -117,6 +117,33 @@ namespace HorseRaceBackend.Services
             }
 
             await _bettorRepository.RemoveBettorAsync(bettor);
+        }
+
+        public async Task<List<BettorForRenderingDto>> FilterByHorseId(int id)
+        {
+            if (id != 0)
+            {
+                List<Bettor> filteredBettors = await _bettorRepository.FilterByHorseId(id);
+                List<BettorForRenderingDto> mappedFilteredBettors = new();
+                Horse horse = await _horseRepository.GetHorseAsync(id);
+                string horseName = horse.Name;
+
+                foreach (var bettor in filteredBettors)
+                {
+                    BettorForRenderingDto mappedBettor = new()
+                    {
+                        Id = bettor.Id,
+                        FirstName = bettor.FirstName,
+                        LastName = bettor.LastName,
+                        Bet = bettor.Bet,
+                        HorseId = bettor.HorseId,
+                        HorseName = horseName
+                    };
+                    mappedFilteredBettors.Add(mappedBettor);
+                }
+                return mappedFilteredBettors;
+            }
+            return await GetBettorsAsync();
         }
 
 

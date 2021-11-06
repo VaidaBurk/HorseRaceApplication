@@ -1,0 +1,108 @@
+<div class="container border rounded-2 mt-3 p-3">
+    <div class="container">
+        <div class="d-grid gap-2">
+            <button class="btn btn-success mb-3 mt-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#bettorsContainer" aria-expanded="true" aria-controls="bettorsContainer">
+                Bettors
+            </button>
+        </div>
+    </div>
+
+    <div class="container show" id="bettorsContainer">
+
+        <!-- form -->
+
+        <div class="row g-2">
+            <input hidden type="number" class="form-control" id="bettorId" [(ngModel)]="id">
+            <div class="col-md-3">
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="firstNameInput" placeholder="First name"
+                        [(ngModel)]="firstName">
+                    <label for="firstNameInput">First name</label>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="lastNameInput" placeholder="LastName"
+                        [(ngModel)]="lastName">
+                    <label for="lastNameInput">Last name</label>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-floating mb-2">
+                    <input type="number" class="form-control form-control-sm" id="betInput" placeholder="Bet, EUR"
+                        [(ngModel)]="bet">
+                    <label for="betInput">Bet, EUR</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-floating">
+                    <select class="form-select form-select-sm" id="horseSelect" [(ngModel)]="horseId"
+                        [ngModelOptions]="{standalone: true}">
+                        <option selected [ngValue]=0>Select...</option>
+                        <option *ngFor="let horse of horses" [ngValue]="horse.id">
+                            {{ horse.name }}
+                        </option>
+                    </select>
+                    <label for="horseSelect">Horse</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col mb-2">
+            <button type="button" class="btn btn-success btn-sm" (click)="addBettor()" *ngIf="displaySaveButton">Add new
+                bettor</button>
+            <button type="button" class="btn btn-success btn-sm" (click)="saveUpdatedBettorInfo()"
+                *ngIf="displayUpdateButton">Update bettor info</button>
+        </div>
+
+        <!-- filter -->
+        <div class="row g-2 mt-3 mb-4">
+            <div class="col-4">
+                <div class="input-group">
+                    <label class="input-group-text" for="horseSelect">Filter By Horse</label>
+                    <select class="form-select form-select-sm" id="horseSelect" [(ngModel)]="filterHorseId"
+                        [ngModelOptions]="{standalone: true}">
+                        <option selected [ngValue]=0>All horses</option>
+                        <option *ngFor="let horse of horses" [ngValue]="horse.id">
+                            {{ horse.name }}
+                        </option>
+                    </select>
+                    <button type="button" class="btn btn-secondary"
+                        (click)="filterByHorseId(filterHorseId)">Filter</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- table -->
+
+        <table class="table table-hover table-bordered">
+            <thead class="table-success">
+                <tr>
+                    <th scope="col" class="ps-3 pe-3">First name</th>
+                    <th scope="col" class="ps-3 pe-3 text-center">Last name</th>
+                    <th scope="col" class="ps-3 pe-3 text-center">Bet, EUR</th>
+                    <th scope="col" class="ps-3 pe-3 text-center">Horse name</th>
+                    <th scope="col" class="ps-3 pe-3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="p-3" *ngFor="let bettor of bettors">
+                    <td class="ps-3 pe-3">{{ bettor.firstName }}</td>
+                    <td class="ps-3 pe-3 text-center">{{ bettor.lastName }}</td>
+                    <td class="ps-3 pe-3 text-center">{{ bettor.bet }}</td>
+                    <td class="ps-3 pe-3 text-center">{{ bettor.horseName }}</td>
+                    <td class="ps-3 pe-3 text-center">
+                        <button type="button" class="btn btn-outline-danger btn-sm me-2"
+                            (click)="deleteBettor(bettor.id)">Delete</button>
+                        <button type="button" class="btn btn-outline-info btn-sm"
+                            (click)="updateBettor(bettor)">Update</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

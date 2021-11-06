@@ -18,7 +18,7 @@ namespace HorseRaceBackend.Repositories
 
         public async Task<List<Bettor>> GetBettorsAsync()
         {
-            return await _dataContext.Bettors.OrderBy(b => b.Bet).ToListAsync();
+            return await _dataContext.Bettors.OrderByDescending(b => b.Bet).ToListAsync();
         }
 
         public async Task<Bettor> GetBettorAsync(int id)
@@ -44,6 +44,11 @@ namespace HorseRaceBackend.Repositories
         {
             _dataContext.Bettors.Remove(bettor);
             await _dataContext.SaveChangesAsync();
+        }
+
+        public async Task<List<Bettor>> FilterByHorseId(int id)
+        {
+            return await _dataContext.Bettors.Where(b => b.HorseId == id).ToListAsync();
         }
     }
 }

@@ -1,0 +1,84 @@
+<div class="container border rounded-2 mt-3 p-3">
+    <div class="container">
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary mb-3 mt-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#horsesContainer" aria-expanded="false" aria-controls="horsesContainer">
+                Horses
+            </button>
+        </div>
+    </div>
+
+    <div class="container show" id="horsesContainer">
+
+        <!-- form -->
+
+        <div class="row g-2">
+            <input hidden type="number" class="form-control" id="horseId" [(ngModel)]="id">
+            <div class="col-md-3">
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="horseNameInput" placeholder="Horse name"
+                        [(ngModel)]="name">
+                    <label for="horseNameInput">Horse name</label>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-floating mb-2">
+                    <input type="number" class="form-control" id="runsInput" placeholder="Total runs"
+                        [(ngModel)]="runs">
+                    <label for="runsInput">Total runs</label>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-floating mb-2">
+                    <input type="number" class="form-control form-control-sm" id="winsInput" placeholder="Wins"
+                        [(ngModel)]="wins">
+                    <label for="winsInput">Wins</label>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="aboutInput" placeholder="About" [(ngModel)]="about">
+                    <label for="aboutInput">About</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col mb-2">
+            <button type="button" class="btn btn-primary btn-sm" (click)="createHorse()" *ngIf="displaySaveButton">Add
+                new horse</button>
+            <button type="button" class="btn btn-primary btn-sm" (click)="saveUpdatedHorseInfo()"
+                *ngIf="displayUpdateButton">Update horse info</button>
+        </div>
+
+        <!-- table -->
+
+        <table class="table table-hover table-bordered">
+            <thead class="table-primary">
+                <tr>
+                    <th scope="col" class="ps-3 pe-3">Name</th>
+                    <th scope="col" class="ps-3 pe-3 text-center">Runs</th>
+                    <th scope="col" class="ps-3 pe-3 text-center">Wins</th>
+                    <th scope="col" class="ps-3 pe-3 text-center">About</th>
+                    <th scope="col" class="ps-3 pe-3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="p-3" *ngFor="let horse of horses">
+                    <td class="ps-3 pe-3">{{ horse.name }}</td>
+                    <td class="ps-3 pe-3 text-center">{{ horse.runs }}</td>
+                    <td class="ps-3 pe-3 text-center">{{ horse.wins }}</td>
+                    <td class="ps-3 pe-3 text-center">{{ horse.about }}</td>
+                    <td class="ps-3 pe-3 text-center">
+                        <button type="button" class="btn btn-outline-danger btn-sm me-2"
+                            (click)="deleteHorse(horse.id)">Delete</button>
+                        <button type="button" class="btn btn-outline-info btn-sm"
+                            (click)="updateHorse(horse)">Update</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
