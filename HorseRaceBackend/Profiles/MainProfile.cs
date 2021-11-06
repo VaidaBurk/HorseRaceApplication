@@ -9,6 +9,8 @@ namespace HorseRaceBackend.Profiles
         public MainProfile()
         {
             CreateMap<HorseAddDto, Horse>();
+            CreateMap<BettorAddDto, Bettor>();
+            CreateMap<BettorUpdateDto, Bettor>().ReverseMap();
         }
     }
 }
