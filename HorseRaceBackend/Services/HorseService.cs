@@ -26,12 +26,12 @@ namespace HorseRaceBackend.Services
 
         public async Task<Horse> GetHorseAsync(int id)
         {
-            var horse = _horseRepository.GetHorseAsync(id);
+            var horse = await _horseRepository.GetHorseAsync(id);
             if (horse == null)
             {
-                throw new ArgumentNullException($"Id {id} does not exist.");
+                throw new ArgumentException($"Id {id} does not exist.");
             }
-            return await horse;
+            return horse;
         }
 
         public async Task<Horse> AddHorseAsync(HorseAddDto newHorse)

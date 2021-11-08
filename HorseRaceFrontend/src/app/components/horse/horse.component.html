@@ -1,17 +1,17 @@
 <div class="container border rounded-2 mt-3 p-3">
     <div class="container">
-        <div class="d-grid gap-2">
+        <div class="d-grid gap-2 mb-2">
             <button class="btn btn-primary mb-3 mt-2" type="button" data-bs-toggle="collapse"
-                data-bs-target="#horsesContainer" aria-expanded="false" aria-controls="horsesContainer">
-                Horses
+                data-bs-target="#horsesContainer" aria-expanded="true" aria-controls="horsesContainer">
+                Add New Horse
             </button>
         </div>
     </div>
 
-    <div class="container show" id="horsesContainer">
+    <div class="container">
 
         <!-- form -->
-
+        <div class="container show" id="horsesContainer">
         <div class="row g-2">
             <input hidden type="number" class="form-control" id="horseId" [(ngModel)]="id">
             <div class="col-md-3">
@@ -45,12 +45,12 @@
             </div>
         </div>
 
-        <div class="col mb-2">
-            <button type="button" class="btn btn-primary btn-sm" (click)="createHorse()" *ngIf="displaySaveButton">Add
-                new horse</button>
+        <div class="col mb-4">
+            <button type="button" class="btn btn-primary btn-sm" (click)="createHorse()" *ngIf="displaySaveButton">Add</button>
             <button type="button" class="btn btn-primary btn-sm" (click)="saveUpdatedHorseInfo()"
                 *ngIf="displayUpdateButton">Update horse info</button>
         </div>
+    </div>
 
         <!-- table -->
 

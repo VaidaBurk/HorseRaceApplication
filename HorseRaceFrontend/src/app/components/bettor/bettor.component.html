@@ -1,65 +1,66 @@
 <div class="container border rounded-2 mt-3 p-3">
     <div class="container">
-        <div class="d-grid gap-2">
+        <div class="d-grid gap-2 mb-2">
             <button class="btn btn-success mb-3 mt-2" type="button" data-bs-toggle="collapse"
-                data-bs-target="#bettorsContainer" aria-expanded="true" aria-controls="bettorsContainer">
-                Bettors
+                data-bs-target="#bettorsContainer" aria-expanded="false" aria-controls="bettorsContainer">
+                Add New Bettor
             </button>
         </div>
     </div>
 
-    <div class="container show" id="bettorsContainer">
+    <div class="container">
 
-        <!-- form -->
+        <div class="container show" id="bettorsContainer">
 
-        <div class="row g-2">
-            <input hidden type="number" class="form-control" id="bettorId" [(ngModel)]="id">
-            <div class="col-md-3">
-                <div class="form-floating mb-2">
-                    <input type="text" class="form-control" id="firstNameInput" placeholder="First name"
-                        [(ngModel)]="firstName">
-                    <label for="firstNameInput">First name</label>
+            <!-- form -->
+            <div class="row g-2">
+                <input hidden type="number" class="form-control" id="bettorId" [(ngModel)]="id">
+                <div class="col-md-3">
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" id="firstNameInput" placeholder="First name"
+                            [(ngModel)]="firstName">
+                        <label for="firstNameInput">First name</label>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" id="lastNameInput" placeholder="LastName"
+                            [(ngModel)]="lastName">
+                        <label for="lastNameInput">Last name</label>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-floating mb-2">
+                        <input type="number" class="form-control form-control-sm" id="betInput" placeholder="Bet, EUR"
+                            [(ngModel)]="bet">
+                        <label for="betInput">Bet, EUR</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating">
+                        <select class="form-select form-select-sm" id="horseSelect" [(ngModel)]="horseId"
+                            [ngModelOptions]="{standalone: true}">
+                            <option selected [ngValue]=0>Select...</option>
+                            <option *ngFor="let horse of horses" [ngValue]="horse.id">
+                                {{ horse.name }}
+                            </option>
+                        </select>
+                        <label for="horseSelect">Horse</label>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="form-floating mb-2">
-                    <input type="text" class="form-control" id="lastNameInput" placeholder="LastName"
-                        [(ngModel)]="lastName">
-                    <label for="lastNameInput">Last name</label>
-                </div>
+            <div class="col mb-4">
+                <button type="button" class="btn btn-success btn-sm" (click)="addBettor()" *ngIf="displaySaveButton">Add</button>
+                <button type="button" class="btn btn-success btn-sm" (click)="saveUpdatedBettorInfo()"
+                    *ngIf="displayUpdateButton">Update bettor info</button>
             </div>
-
-            <div class="col-md-2">
-                <div class="form-floating mb-2">
-                    <input type="number" class="form-control form-control-sm" id="betInput" placeholder="Bet, EUR"
-                        [(ngModel)]="bet">
-                    <label for="betInput">Bet, EUR</label>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-floating">
-                    <select class="form-select form-select-sm" id="horseSelect" [(ngModel)]="horseId"
-                        [ngModelOptions]="{standalone: true}">
-                        <option selected [ngValue]=0>Select...</option>
-                        <option *ngFor="let horse of horses" [ngValue]="horse.id">
-                            {{ horse.name }}
-                        </option>
-                    </select>
-                    <label for="horseSelect">Horse</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="col mb-2">
-            <button type="button" class="btn btn-success btn-sm" (click)="addBettor()" *ngIf="displaySaveButton">Add new
-                bettor</button>
-            <button type="button" class="btn btn-success btn-sm" (click)="saveUpdatedBettorInfo()"
-                *ngIf="displayUpdateButton">Update bettor info</button>
         </div>
 
         <!-- filter -->
-        <div class="row g-2 mt-3 mb-4">
+        <div class="row g-2 mb-3">
             <div class="col-4">
                 <div class="input-group">
                     <label class="input-group-text" for="horseSelect">Filter By Horse</label>
